@@ -8,7 +8,7 @@
 
 #### 1、懒汉单例模式
 
-懒汉：故名思义，不到万不得已就不会去实例化类，也就是说在第一次用到类实例的时候才会去实例化一个对象。在访问量较小，甚至可能不会去访问的情况下，采用懒汉实现，这是以时间换空间。
+懒汉：故名思义，不到万不得已就不会去实例化类，也就是说在第一次用到类实例的时候才会去实例化一个对象。**在访问量较小，甚至可能不会去访问的情况下，采用懒汉实现，这是以时间换空间。**
 
 ##### 1.1、非线程安全的懒汉单例模式
 
@@ -19,18 +19,20 @@
 //懒汉式一般实现：非线程安全，getInstance返回的实例指针需要delete
 class Singleton {
 public:
-    static Singleton* getInstance();
-    ~Singleton(){}
+    static Singleton* getInstance();						//静态函数
+    ~Singleton(){}											//析构函数
 private:
     Singleton() {}
     Singleton(const Singleton& obj) = delete;            	//明确拒绝默认构造函数
     Singleton& operator=(const Singleton& obj) = delete; 	//明确拒绝默认赋值函数
     static Singleton* m_pSingleton;							//静态成员
 };
-Singleton* Singleton::m_pSingleton = NULL;	//静态成员初始化
-Singleton* Singleton::getInstance() {		//函数实现
+
+Singleton* Singleton::m_pSingleton = NULL;					//静态成员初始化
+
+Singleton* Singleton::getInstance() {						//函数实现
     if(m_pSingleton == NULL) {
-        m_pSingleton = new Singleton;
+        m_pSingleton = new Singleton();
     }
     return m_pSingleton;
 }
@@ -42,15 +44,17 @@ Singleton* Singleton::getInstance() {		//函数实现
 std::mutex mt;
 class Singleton {
 public:
-    static Singleton* getInstance();
+    static Singleton* getInstance();					//静态函数
 private:
     Singleton(){}                                    	//构造函数私有
     Singleton(const Singleton&) = delete;            	//明确拒绝构造函数
     Singleton& operator=(const Singleton&) = delete; 	//明确拒绝赋值函数
     static Singleton* m_pSingleton;						//自引用（静态变量）
 };
+
 Singleton* Singleton::m_pSingleton = NULL;				//静态成员变量初始化
-Singleton* Singleton::getInstance() {
+
+Singleton* Singleton::getInstance() {					//函数实现
     if(m_pSingleton == NULL) {
         mt.lock();										//加锁判断
         if(m_pSingleton == NULL) {
@@ -69,11 +73,11 @@ Singleton* Singleton::getInstance() {
 ```cpp
 class Singleton {
 public:
-    static Singleton& getInstance();
+    static Singleton& getInstance();					//静态成员
 private:
-    Singleton(){}
-    Singleton(const Singleton&) = delete;  //明确拒绝
-    Singleton& operator=(const Singleton&) = delete; //明确拒绝
+    Singleton(){}										//默认构造函数
+    Singleton(const Singleton&) = delete;  				//明确拒绝构造函数
+    Singleton& operator=(const Singleton&) = delete; 	//明确拒绝赋值函数
 };
 
 Singleton& Singleton::getInstance() {
@@ -90,12 +94,12 @@ Singleton& Singleton::getInstance() {
 //饿汉式：线程安全，注意一定要在合适的地方去delete它
 class Singleton {
 public:
-    static Singleton* getInstance();
+    static Singleton* getInstance();					//静态函数
 private:
-    Singleton(){}                                    //构造函数私有
-    Singleton(const Singleton&) = delete;            //明确拒绝
-    Singleton& operator=(const Singleton&) = delete; //明确拒绝
-    static Singleton* m_pSingleton;
+    Singleton(){}                                    	//构造函数私有
+    Singleton(const Singleton&) = delete;            	//明确拒绝拷贝构造函数
+    Singleton& operator=(const Singleton&) = delete; 	//明确拒绝拷贝赋值函数
+    static Singleton* m_pSingleton;						//静态成员
 };
 
 Singleton* Singleton::m_pSingleton = new Singleton();	//静态成员初始化
