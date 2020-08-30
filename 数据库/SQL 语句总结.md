@@ -53,3 +53,17 @@ SQL 中最重要的 DDL 语句:
 | TRUNCATE TABLE (deletes only the data inside the table) | 仅仅删除表格中的数据，但并不删除表本身 | TRUNCATE TABLE table_name                                    |
 | UPDATE                                                  | 修改表中的数据                         | UPDATE table_name<br/>SET column_name=new_value<br/>[, column_name=new_value]<br/>WHERE column_name=some_value |
 | WHERE                                                   | 规定选择的标准                         | SELECT column_name(s)<br/>FROM table_name<br/>WHERE condition |
+
+```sql
+(7)     SELECT 
+(8)     DISTINCT <select_list>
+(1)     FROM <left_table>
+(3)     <join_type> JOIN <right_table>
+(2)     ON <join_condition>
+(4)     WHERE <where_condition>
+(5)     GROUP BY <group_by_list>
+(6)     HAVING <having_condition>
+(9)     ORDER BY <order_by_condition>
+(10)    LIMIT <limit_number>
+```
+
