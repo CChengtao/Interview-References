@@ -84,6 +84,11 @@ grep [-abcEFGhHilLnqrsvVwxy][-A<显示列数>][-B<显示列数>][-C<显示列数
 
 **-c 或 --count : 计算符合样式的列数。**
 
+```shell
+cct@TNT:~$ grep -c "linuxmi" test.txt
+2
+```
+
 -C<显示行数> 或 --context=<显示行数>或-<显示行数> : 除了显示符合样式的那一行之外，并显示该行之前后的内容。
 
 -d <动作> 或 --directories=<动作> : 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep指令将回报信息并停止动作。
@@ -103,6 +108,12 @@ grep [-abcEFGhHilLnqrsvVwxy][-A<显示列数>][-B<显示列数>][-C<显示列数
 -H 或 --with-filename : 在显示符合样式的那一行之前，表示该行所属的文件名称。
 
 **-i 或 --ignore-case : 忽略字符大小写的差别。**
+
+```shell
+cct@TNT:~$ grep -i "linuxmi" test.txt
+Manny linuxmi account 49000
+tarun linuxmi sales 15000
+```
 
 -l 或 --file-with-matches : 列出文件内容符合指定的样式的文件名称。
 
